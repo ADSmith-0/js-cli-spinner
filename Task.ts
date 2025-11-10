@@ -1,8 +1,11 @@
 import { exec } from "node:child_process";
 import { clearLine, cursorTo } from "node:readline";
 
+type Stdout = string;
+
 const BOLD_BLUE = "\x1b[1;34m";
 const BOLD_GREEN = "\x1b[1;32m";
+const BOLD_YELLOW = "\x1b[1;33m";
 const BOLD_RED = "\x1b[1;31m";
 const RESET = "\x1b[0m";
 
@@ -24,7 +27,7 @@ export const withSpinner = ({
     );
   }, 80);
 
-  return new Promise<{ stdout: string }>((resolve) => {
+  return new Promise<Stdout>((resolve) => {
     const task = exec(cmd);
 
     let stdout: string = "";
@@ -43,15 +46,16 @@ export const withSpinner = ({
       clearLine(process.stdout, 0);
       cursorTo(process.stdout, 0);
 
-      if (code === 0) {
-        process.stdout.write(`\r${BOLD_GREEN}✔️ ${RESET}${finishedText}\n`);
-      } else {
-        process.stdout.write(`\r${BOLD_RED}✖️ ${RESET}${taskName}\n`);
+      if (code === 1) {
+        process.stdout.write(`\r${BOLD_RED}✖${RESET} ${taskName}\n`);
         process.stderr.write(stderr);
         process.exit(1);
       }
-
-      resolve({ stdout });
+      process.stdout.write(`\r${BOLD_GREEN}✔${RESET} ${finishedText}\n`);
+      if (code !== 0 && code !== null) {
+        process.stdout.write(`\r${BOLD_YELLOW}⚠${RESET} Warning: Process exited with a non-zero code: ${code}\n`);
+      }
+      resolve(stdout);
     });
   });
 };
