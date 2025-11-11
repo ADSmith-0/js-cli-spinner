@@ -1,4 +1,4 @@
-import { withSpinner } from "./Task";
+import { withSpinner } from "./Spinner";
 
 await withSpinner({
   taskName: "Clearing Cache",
