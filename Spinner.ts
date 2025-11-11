@@ -11,6 +11,8 @@ const RESET = "\x1b[0m";
 
 const FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
 
+const INTERVAL = 80;
+
 export const withSpinner = ({
   taskName,
   cmd,
@@ -25,7 +27,7 @@ export const withSpinner = ({
     process.stdout.write(
       `\r${BOLD_BLUE}${FRAMES[i++ % FRAMES.length]}${RESET} ${taskName}...`,
     );
-  }, 80);
+  }, INTERVAL);
 
   return new Promise<Stdout>((resolve) => {
     const task = exec(cmd);
