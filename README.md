@@ -89,7 +89,8 @@ await withSpinner({
 ```
 
 ### Output
-TODO
+[Screencast from 11-12-2025 12:32:57 AM.webm](https://github.com/user-attachments/assets/016334cf-680f-4410-8017-0aaadc7eb181)
+
 
 ## Why library-less?
 A lot of projects and orgs will have rules about what libraries can be used in prjects. It's no surprise, given how many issues there have been with npm packages over the years, for example the [left pad incident](https://en.wikipedia.org/wiki/Npm_left-pad_incident), or the [faker.js incident](https://www.revenera.com/blog/software-composition-analysis/the-story-behind-colors-js-and-faker-js/), and there are more examples of this. Most of the time libraries are completely fine, however they also become another package to keep up to date, another package to fix transitive dependency issues for, another package which can push a breaking update without giving you a heads up. Libraries are fantastic, but sometimes you only need a few lines to achieve exactly what you want. By copy-pasting the code into your project, you're the owner and you can change it as you see fit.
