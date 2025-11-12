@@ -89,7 +89,7 @@ await withSpinner({
 ```
 
 ### Output
-[Screencast from 11-12-2025 12:32:57 AM.webm](https://github.com/user-attachments/assets/016334cf-680f-4410-8017-0aaadc7eb181)
+[Output](https://github.com/user-attachments/assets/016334cf-680f-4410-8017-0aaadc7eb181)
 
 
 ## Why library-less?
