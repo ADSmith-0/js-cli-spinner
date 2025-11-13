@@ -103,8 +103,9 @@ The codes here are ASCII colour codes, here's a [helpful table](https://www.shel
 
 For example, changing the spinner to purple:
 ```ts
-    const BOLD_PURPLE = "\x1b[1;35m";
-    `\r${BOLD_PURPLE}${FRAMES[i++ % FRAMES.length]}${RESET} ${taskName}...`,
+const BOLD_PURPLE = "\x1b[1;35m";
+...
+`\r${BOLD_PURPLE}${FRAMES[i++ % FRAMES.length]}${RESET} ${taskName}...`,
 ```
 
 
@@ -113,8 +114,9 @@ TODO
 #### Rainbow
 
 ```ts
-    const FRAME_COLOURS = [BOLD_BLUE, BOLD_BLUE, BOLD_YELLOW, BOLD_YELLOW, BOLD_PURPLE, BOLD_PURPLE];
-    `\r${FRAME_COLOURS[i % FRAME_COLOURS.length]}${FRAMES[i++ % FRAMES.length]}${RESET} ${taskName}...`,
+const FRAME_COLOURS = [BOLD_BLUE, BOLD_BLUE, BOLD_YELLOW, BOLD_YELLOW, BOLD_PURPLE, BOLD_PURPLE];
+...
+`\r${FRAME_COLOURS[i % FRAME_COLOURS.length]}${FRAMES[i++ % FRAMES.length]}${RESET} ${taskName}...`,
 ```
 
 _Colours are repeated to reduce how frequently they change_
