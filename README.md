@@ -2,8 +2,10 @@
 # Simple JS CLI spinner
 A tiny library-less 61 line spinner to be used in your npm projects to make running multiple commands much easier. No dependencies, no install, simply copy and paste the `Spinner.ts` file to use. Example usage can be seen in the `index.ts`
 
-## Code
-_Note: This may have changed, check `Spinner.ts` for the most up-to-date version_
+## Installation
+Copy the `Spinner.ts` file into your project, or you can copy and paste from below
+
+_Below may have changed, check `Spinner.ts` for the most up-to-date version_
 
 ```ts
 import { exec } from "node:child_process";
@@ -93,21 +95,36 @@ await withSpinner({
 
 
 ## Why library-less?
-A lot of projects and orgs will have rules about what libraries can be used in prjects. It's no surprise, given how many issues there have been with npm packages over the years, for example the [left pad incident](https://en.wikipedia.org/wiki/Npm_left-pad_incident), or the [faker.js incident](https://www.revenera.com/blog/software-composition-analysis/the-story-behind-colors-js-and-faker-js/), and there are more examples of this. Most of the time libraries are completely fine, however they also become another package to keep up to date, another package to fix transitive dependency issues for, another package which can push a breaking update without giving you a heads up. Libraries are fantastic, but sometimes you only need a few lines to achieve exactly what you want. By copy-pasting the code into your project, you're the owner and you can change it as you see fit.
+A lot of projects and orgs will have rules about what libraries can be used in projects. Sometimes all you need is a small file and that can cover every use-case you want. By copy-pasting the code into your project, you're the owner and you can change it as you see fit. See the recipes below to modify it
 
 ## Recipes
 ### Colour
 The codes here are ASCII colour codes, here's a [helpful table](https://www.shellhacks.com/bash-colors/) you can use to see all of the colours available
 
+For example, changing the spinner to purple:
+```ts
+    const BOLD_PURPLE = "\x1b[1;35m";
+    `\r${BOLD_PURPLE}${FRAMES[i++ % FRAMES.length]}${RESET} ${taskName}...`,
+```
+
+
 TODO
 
 #### Rainbow
+
+```ts
+    const FRAME_COLOURS = [BOLD_BLUE, BOLD_BLUE, BOLD_YELLOW, BOLD_YELLOW, BOLD_PURPLE, BOLD_PURPLE];
+    `\r${FRAME_COLOURS[i % FRAME_COLOURS.length]}${FRAMES[i++ % FRAMES.length]}${RESET} ${taskName}...`,
+```
+
+_Colours are repeated to reduce how frequently they change_
+
 
 TODO
 
 ### Spinner
 You can easily grab one from the fantastic [cli-spinners](https://github.com/sindresorhus/cli-spinners) project. All the available spinners can be seen on the [jsfiddle](https://jsfiddle.net/sindresorhus/2eLtsbey/) provided in their README. Once you see one you like you can just copy the frames from the [spinners.json](https://github.com/sindresorhus/cli-spinners/blob/main/spinners.json). Huge thank you to them, the animations are fantastic! 😄
 
-_Note: Remember that the speed of the animation is determined by the number of frames, if you keep the interval constant, but have less frames then it will appear faster and with more frames it will appear slower_
+_Remember that the speed of the animation is determined by the number of frames, if you keep the interval constant, but have less frames then it will appear faster and with more frames it will appear slower_
 
 TODO
