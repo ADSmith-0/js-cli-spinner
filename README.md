@@ -120,6 +120,9 @@ const FRAME_COLOURS = [BOLD_RED, BOLD_YELLOW, BOLD_GREEN, BOLD_BLUE, BOLD_PURPLE
   
 [Rainbow.webm](https://github.com/user-attachments/assets/abfd3be5-26a5-4d36-8e7a-5e237ff71ede)
 
+### Colourful text
+The ASCII colours apply to everything before the `RESET`, so if you move it further down you can get colourful text as well
+
 ### Spinner
 You can easily grab one from the fantastic [cli-spinners](https://github.com/sindresorhus/cli-spinners) project. All the available spinners can be seen on the [jsfiddle](https://jsfiddle.net/sindresorhus/2eLtsbey/) provided in their README. Once you see one you like you can just copy the frames from the [spinners.json](https://github.com/sindresorhus/cli-spinners/blob/main/spinners.json). Huge thank you to them, the animations are fantastic! 😄
 
