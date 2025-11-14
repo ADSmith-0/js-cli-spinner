@@ -110,12 +110,12 @@ const BOLD_PURPLE = "\x1b[1;35m";
 
 [Colour.webm](https://github.com/user-attachments/assets/090c4a3c-349c-45a8-adf0-06f320326ac4)
 
-#### Rainbow
+### Rainbow
 
 ```ts
-const FRAME_COLOURS = [BOLD_BLUE, BOLD_BLUE, BOLD_YELLOW, BOLD_YELLOW, BOLD_PURPLE, BOLD_PURPLE];
+const FRAME_COLOURS = [BOLD_RED, BOLD_YELLOW, BOLD_GREEN, BOLD_BLUE, BOLD_PURPLE];
 ...
-`\r${FRAME_COLOURS[i % FRAME_COLOURS.length]}${FRAMES[i++ % FRAMES.length]}${RESET} ${taskName}...`,
+`\r${FRAME_COLOURS[Math.floor(i / FRAMES.length) % FRAME_COLOURS.length]}${FRAMES[i++ % FRAMES.length]}${RESET} ${taskName}...`,
 ```
 
 _Colours are repeated to reduce how frequently they change_
