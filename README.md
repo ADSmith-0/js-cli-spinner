@@ -117,8 +117,6 @@ const FRAME_COLOURS = [BOLD_RED, BOLD_YELLOW, BOLD_GREEN, BOLD_BLUE, BOLD_PURPLE
 ...
 `\r${FRAME_COLOURS[Math.floor(i / FRAMES.length) % FRAME_COLOURS.length]}${FRAMES[i++ % FRAMES.length]}${RESET} ${taskName}...`,
 ```
-
-_Colours are repeated to reduce how frequently they change_
   
 [Rainbow.webm](https://github.com/user-attachments/assets/abfd3be5-26a5-4d36-8e7a-5e237ff71ede)
 
