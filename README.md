@@ -119,11 +119,8 @@ const FRAME_COLOURS = [BOLD_BLUE, BOLD_BLUE, BOLD_YELLOW, BOLD_YELLOW, BOLD_PURP
 ```
 
 _Colours are repeated to reduce how frequently they change_
-
-⚠️ Warning that the video has flashing colours
   
-[Rainbow.webm](https://github.com/user-attachments/assets/bdb2ec08-e104-4a43-a65c-31926b6888c5)
-
+[Rainbow.webm](https://github.com/user-attachments/assets/abfd3be5-26a5-4d36-8e7a-5e237ff71ede)
 
 ### Spinner
 You can easily grab one from the fantastic [cli-spinners](https://github.com/sindresorhus/cli-spinners) project. All the available spinners can be seen on the [jsfiddle](https://jsfiddle.net/sindresorhus/2eLtsbey/) provided in their README. Once you see one you like you can just copy the frames from the [spinners.json](https://github.com/sindresorhus/cli-spinners/blob/main/spinners.json). Huge thank you to them, the animations are fantastic! 😄
