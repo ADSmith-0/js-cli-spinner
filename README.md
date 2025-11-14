@@ -123,6 +123,10 @@ const FRAME_COLOURS = [BOLD_RED, BOLD_YELLOW, BOLD_GREEN, BOLD_BLUE, BOLD_PURPLE
 ### Colourful text
 The ASCII colours apply to everything before the `RESET`, so if you move it further down you can get colourful text as well
 
+```ts
+`\r${BOLD_BLUE}${FRAMES[i++ % FRAMES.length]} ${taskName}...${RESET}`,
+```
+
 [Colourful_Text.webm](https://github.com/user-attachments/assets/4f312a90-ac67-4944-bca2-f18ce6952a6c)
 
 ### Spinner
