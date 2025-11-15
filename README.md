@@ -93,6 +93,30 @@ await withSpinner({
 ### Output
 [Output.webm](https://github.com/user-attachments/assets/6f35af3b-f638-44f6-8984-a1b75e389b0b)
 
+## Features
+The purpose of this library is to work collaboratively with any command that's run. If the command is successful then it should complete and move onto the next command, however if the command is not successful, then we should exit the script and bubble up the error to the dev. If the spinner is hiding errors from us then it doesn't do us much good
+
+How `withSpinner` works is that it will listen to the `stdout`, `stderr` and `code` for the command that's being executed. To briefly explain:
+
+- `stdin` - The standard input stream for the program, this is the command line where you type in your command such as `echo "hello"`
+- `stdout` - The standard output stream for the program, this is what's returned from the command, for example if we run the command above `echo "hello"`, the `stdout` would be `hello`
+- `stderr` - The standard error stream, similar to the `stdout`, but will capture only the errors for a commands output
+- `code` - The code that the program returns, `0` is successful, `1` is an general error, there are more codes and more specific codes, but those are the common ones to run into
+
+This isn't perfect unfortunately as it's down the person writing the scripts to use these streams as intended. I've seen scripts which error with a code `0` and scripts which succeed with no code returned. Which is why there's a bit more going on in the `Spinner.ts` file than simply reading the codes. However what this does mean is that when we get an error code back, we can fail the command then print out the errors that we received from the errored script to help us understand what went wrong
+
+This is what can be seen above with
+```bash
+sleep 2; echo "Process exited with an error!" >&2; exit 1;
+```
+
+Here we run 3 commands one after another:
+- `sleep 2` - Pause the script for 2 seconds, to allow the spinner to show
+- `echo "Process exited with an error!" >&2`, the `>&2` means pipe the output of the previous command, the `echo`, into `stderr`
+- `exit 1` - Exit with code `1`, which is an error
+
+Then the outcome as you can see from above is that the process will display our `stderr` and stop execution
+
 
 ## Why library-less?
 A lot of projects and orgs will have rules about what libraries can be used in projects. Sometimes all you need is a small file and that can cover every use-case you want. By copy-pasting the code into your project, you're the owner and you can change it as you see fit. See the recipes below to modify it
