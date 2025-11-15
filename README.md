@@ -115,9 +115,7 @@ Here we run 3 commands one after another:
 - `echo "Process exited with an error!" >&2`, the `>&2` means pipe the output of the previous command, the `echo`, into `stderr`
 - `exit 1` - Exit with code `1`, which is an error
 
-Then the outcome as you can see from above is that the process will display our `stderr` and stop execution
-
-What this means in practice is that you should be able to run any command with the `withSpinner` function and it will pass on the exact error that's printed from the command
+Then the outcome as you can see from above is that the process will display our `stderr` and stop execution. What this means in practice is that you should be able to run any command with the `withSpinner` function and it will pass on the error that's printed from the command
 
 ## Why library-less?
 A lot of projects and orgs will have rules about what libraries can be used in projects. Sometimes all you need is a small file and that can cover every use-case you want. By copy-pasting the code into your project, you're the owner and you can change it as you see fit. See the recipes below to modify it
