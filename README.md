@@ -163,7 +163,7 @@ _Remember that the speed of the animation is determined by the number of frames.
 const FRAMES = ["◐", "◓", "◑", "◒"];
 ```
 
-TODO
+[CircleHalves.webm](https://github.com/user-attachments/assets/2bc10ded-cb65-400b-9d91-79842c078ee6)
 
 ### Scrolling dots
 ```ts
@@ -171,4 +171,5 @@ const FRAMES = [".  ", ".. ", "...", " ..", "  .", "   "];
 const INTERVAL = 110;
 ```
 
-TODO
+[ScrollingDots.webm](https://github.com/user-attachments/assets/4725c42c-0444-445b-9356-33532e369938)
+
