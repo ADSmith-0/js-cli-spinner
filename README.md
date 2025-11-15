@@ -118,7 +118,7 @@ Here we run 3 commands one after another:
 Then the outcome as you can see from above is that the process will display our `stderr` and stop execution. What this means in practice is that you should be able to run any command with the `withSpinner` function and it will pass on the error that's printed from the command
 
 ## Why library-less?
-A lot of projects and orgs will have rules about what libraries can be used in projects. Sometimes all you need is a small file and that can cover every use-case you want. By copy-pasting the code into your project, you're the owner and you can change it as you see fit. See the recipes below to modify it
+It's honestly just far easier. A lot of projects and orgs have specific rules about which libraries can be included, and this isn't intended to be massive and comprehesive. Rather it's intended to be a small tool to make long npm scripts, that run multiple steps, much easier to read and understand. Any modifications you want such as different colours, text, spinners, etc, can all be achieved very easily through the recipes section, something which would be much harder to do, if it was abstracted behind an interface
 
 ## Recipes
 ### Colour
@@ -144,7 +144,7 @@ const FRAME_COLOURS = [BOLD_RED, BOLD_YELLOW, BOLD_GREEN, BOLD_BLUE, BOLD_PURPLE
 [Rainbow.webm](https://github.com/user-attachments/assets/abfd3be5-26a5-4d36-8e7a-5e237ff71ede)
 
 ### Colourful text
-The ASCII colours apply to everything before the `RESET`, so if you move it further down you can get colourful text as well
+The ASCII colours apply to everything before the `RESET`, so if you move it further down the line you can get colourful text as well
 
 ```ts
 `\r${BOLD_BLUE}${FRAMES[i++ % FRAMES.length]} ${taskName}...${RESET}`,
