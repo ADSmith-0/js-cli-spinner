@@ -118,7 +118,7 @@ Here we run 3 commands one after another:
 Then the outcome as you can see from above is that the process will display our `stderr` and stop execution. What this means in practice is that you should be able to run any command with the `withSpinner` function and it will pass on the error that's printed from the command
 
 ## Why library-less?
-It's honestly just far easier. A lot of projects and orgs have specific rules about which libraries can be included, and this isn't intended to be massive and comprehesive. Rather it's intended to be a small tool to make long npm scripts, that run multiple steps, much easier to read and understand. Any modifications you want such as different colours, text, spinners, etc, can all be achieved very easily through the recipes section, something which would be much harder to do, if it was abstracted behind an interface
+It's honestly just far easier. A lot of projects and orgs have specific rules about which libraries can be included, and this isn't intended to be massive and comprehesive. Rather it's intended to be a small tool to make long npm scripts, that run multiple steps, much easier to read and understand. Any modifications you want such as different colours, text, spinners, etc, can all be achieved very easily through the recipes section, something which would be much harder to do if it was abstracted behind an interface
 
 ## Recipes
 ### Colour
