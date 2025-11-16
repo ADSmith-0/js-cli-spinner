@@ -14,5 +14,8 @@ jobs:
       with:
         node-version: "24.x"
 
+    - name: ls
+      run: ls
+
     - name: Print variable
       run: node index.ts
