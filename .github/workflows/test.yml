@@ -1,0 +1,10 @@
+on:
+  workflow_dispatch
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Print variable
+      run: echo "$CI"
