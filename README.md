@@ -181,5 +181,5 @@ const spinner = setInterval(() => {
 }, INTERVAL);
 ```
 
-[ScrollingDots.webm](https://github.com/user-attachments/assets/4725c42c-0444-445b-9356-33532e369938)
+[ScrollingDots.webm](https://github.com/user-attachments/assets/a1d04f6e-e5de-42a7-b2d2-f5d5e0f02b34)
 
