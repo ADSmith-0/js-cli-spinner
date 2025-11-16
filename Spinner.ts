@@ -55,7 +55,9 @@ export const withSpinner = ({
       }
       process.stdout.write(`\r${BOLD_GREEN}✔${RESET} ${finishedText}\n`);
       if (code !== 0 && code !== null) {
-        process.stdout.write(`\r${BOLD_YELLOW}⚠${RESET} Warning: Process exited with a non-zero code: ${code}\n`);
+        process.stdout.write(
+          `\r${BOLD_YELLOW}⚠${RESET} Warning: Process exited with a non-zero code: ${code}\n`,
+        );
       }
       resolve(stdout);
     });
