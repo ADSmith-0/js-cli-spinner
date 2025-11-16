@@ -167,8 +167,16 @@ const FRAMES = ["◐", "◓", "◑", "◒"];
 
 ### Scrolling dots
 ```ts
-const FRAMES = [".  ", ".. ", "...", " ..", "  .", "   "];
-const INTERVAL = 110;
+const FRAMES = ["", ".", "..", "..."];
+const INTERVAL = 250;
+...
+const spinner = setInterval(() => {
+    clearLine(process.stdout, 0);
+    cursorTo(process.stdout, 0);
+    process.stdout.write(
+      `\r${BOLD_BLUE}>${RESET} ${taskName}${FRAMES[i++ % FRAMES.length]}`,
+    );
+}, INTERVAL);
 ```
 
 [ScrollingDots.webm](https://github.com/user-attachments/assets/4725c42c-0444-445b-9356-33532e369938)
