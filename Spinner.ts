@@ -1,4 +1,4 @@
-import { exec } from "node:child_process";
+import { exec, execSync } from "node:child_process";
 import { clearLine, cursorTo } from "node:readline";
 
 type Stdout = string;
@@ -12,6 +12,10 @@ const RESET = "\x1b[0m";
 const FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
 
 const INTERVAL = 80;
+
+const isCI = execSync("echo \"$CI\"").toString().trim();
+
+console.log("isCI:", !!isCI);
 
 export const withSpinner = ({
   taskName,
