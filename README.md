@@ -107,7 +107,7 @@ await withSpinner({
 ### Errors
 The purpose of this library is to work collaboratively with any command that's run. If the command is successful then it should complete and move onto the next command, however if the command is not successful, then we should exit the script and bubble up the error to the dev. If the spinner is hiding errors from us then it doesn't do us much good
 
-How `withSpinner` works is that it will listen to the `stdout`, `stderr` and `code` for the command that's being executed. To briefly explain:
+How `withSpinner` works is that it will listen to the `stdout`, `stderr` and `code` for the command that's being executed. To briefly explain what these are:
 
 - `stdin` - The standard input stream for the program, this is the command line where you type in your command such as `echo "hello"`
 - `stdout` - The standard output stream for the program, this is what's returned from the command, for example if we run the command above `echo "hello"`, the `stdout` would be `hello`
