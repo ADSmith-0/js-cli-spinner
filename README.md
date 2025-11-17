@@ -8,7 +8,7 @@ Copy the `Spinner.ts` file into your project, or you can copy and paste from bel
 _Below may have changed, check `Spinner.ts` for the most up-to-date version_
 
 ```ts
-import { exec } from "node:child_process";
+import { exec, execSync } from "node:child_process";
 import { clearLine, cursorTo } from "node:readline";
 
 type Stdout = string;
@@ -23,6 +23,8 @@ const FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "
 
 const INTERVAL = 80;
 
+const CI = execSync('echo "$CI"').toString().trim();
+
 export const withSpinner = ({
   taskName,
   cmd,
@@ -32,12 +34,18 @@ export const withSpinner = ({
   cmd: string;
   finishedText: string;
 }) => {
-  let i = 0;
-  const spinner = setInterval(() => {
-    process.stdout.write(
-      `\r${BOLD_BLUE}${FRAMES[i++ % FRAMES.length]}${RESET} ${taskName}...`,
-    );
-  }, INTERVAL);
+  let spinner: NodeJS.Timeout | undefined;
+
+  if (CI) {
+    process.stdout.write(`\r${BOLD_BLUE}>${RESET} ${taskName}...`);
+  } else {
+    let i = 0;
+    spinner = setInterval(() => {
+      process.stdout.write(
+        `\r${BOLD_BLUE}${FRAMES[i++ % FRAMES.length]}${RESET} ${taskName}...`,
+      );
+    }, INTERVAL);
+  }
 
   return new Promise<Stdout>((resolve) => {
     const task = exec(cmd);
@@ -182,4 +190,24 @@ const spinner = setInterval(() => {
 ```
 
 [ScrollingDots.webm](https://github.com/user-attachments/assets/a1d04f6e-e5de-42a7-b2d2-f5d5e0f02b34)
+
+## CI
+Running the spinner in a CI is a problem as each write is treated separately, which means you will end up with an output that looks like this:
+
+TODO
+
+Which is obviously not ideal. This spinner comes with a way to fix this however using the `CI` env variable. Most CI scripts will set an env variable of CI to some variation of `true`, so reading this we can decide instead what we display
+
+```ts
+const CI = execSync('echo "$CI"').toString().trim();
+...
+if (CI) {
+  process.stdout.write(`\r${BOLD_BLUE}>${RESET} ${taskName}...`);
+}
+```
+
+So the output by default in the CI will look like this:
+
+TODO
+
 
