@@ -13,9 +13,7 @@ const FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "
 
 const INTERVAL = 80;
 
-const isCI = execSync("echo \"$CI\"").toString().trim();
-
-console.log("isCI:", !!isCI);
+const CI = execSync('echo "$CI"').toString().trim();
 
 export const withSpinner = ({
   taskName,
@@ -27,11 +25,16 @@ export const withSpinner = ({
   finishedText: string;
 }) => {
   let i = 0;
-  const spinner = setInterval(() => {
-    process.stdout.write(
-      `\r${BOLD_BLUE}${FRAMES[i++ % FRAMES.length]}${RESET} ${taskName}...`,
-    );
-  }, INTERVAL);
+  if (CI) {
+    process.stdout.write(`\r${BOLD_BLUE}>${RESET} ${taskName}...`);
+  }
+  const spinner = !CI
+    ? setInterval(() => {
+      process.stdout.write(
+        `\r${BOLD_BLUE}${FRAMES[i++ % FRAMES.length]}${RESET} ${taskName}...`,
+      );
+    }, INTERVAL)
+    : undefined;
 
   return new Promise<Stdout>((resolve) => {
     const task = exec(cmd);
