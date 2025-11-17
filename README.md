@@ -194,9 +194,9 @@ const spinner = setInterval(() => {
 ## CI
 Running the spinner in a CI is a problem as each write is treated separately, which means you will end up with an output that looks like this:
 
-TODO
+<img width="361" height="580" alt="Screenshot from 2025-11-17 22-28-51" src="https://github.com/user-attachments/assets/5973a452-953e-48c7-8de0-5f6ad2859a2f" />
 
-Which is obviously not ideal. This spinner comes with a way to fix this however using the `CI` env variable. Most CI scripts will set an env variable of CI to some variation of `true`, so reading this we can decide instead what we display
+Which is obviously not ideal. This spinner comes with a way to fix this however using the `CI` env variable. Most CI runners will set an env variable of `CI` to some variation of `true`, so reading this we can decide instead what we display
 
 ```ts
 const CI = execSync('echo "$CI"').toString().trim();
@@ -206,8 +206,7 @@ if (CI) {
 }
 ```
 
-So the output by default in the CI will look like this:
+So the output by default in the CI will instead look like this:
 
-TODO
-
+<img width="361" height="221" alt="Screenshot from 2025-11-17 22-29-21" src="https://github.com/user-attachments/assets/3f5bba11-ce97-4dc2-8fd5-15f5e9161ea0" />
 
