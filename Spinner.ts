@@ -24,17 +24,18 @@ export const withSpinner = ({
   cmd: string;
   finishedText: string;
 }) => {
-  let i = 0;
+  let spinner: NodeJS.Timeout | undefined;
+
   if (CI) {
     process.stdout.write(`\r${BOLD_BLUE}>${RESET} ${taskName}...`);
-  }
-  const spinner = !CI
-    ? setInterval(() => {
+  } else {
+    let i = 0;
+    spinner = setInterval(() => {
       process.stdout.write(
         `\r${BOLD_BLUE}${FRAMES[i++ % FRAMES.length]}${RESET} ${taskName}...`,
       );
-    }, INTERVAL)
-    : undefined;
+    }, INTERVAL);
+  }
 
   return new Promise<Stdout>((resolve) => {
     const task = exec(cmd);
