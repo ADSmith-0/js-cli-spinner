@@ -1,6 +1,6 @@
 # Currently WIP 🚧
 # Simple JS CLI spinner
-A tiny library-less 61 line spinner to be used in your npm projects to make running multiple commands much easier. No dependencies, no install, simply copy and paste the `Spinner.ts` file to use. Example usage can be seen in the `index.ts`
+A tiny, library-less, 73 line spinner to be used in your npm projects to make running multiple commands much easier. No dependencies, no install, simply copy and paste the `Spinner.ts` file to use. Example usage can be seen in the `index.ts`
 
 ## Installation
 Copy the `Spinner.ts` file into your project, or you can copy and paste from below
@@ -196,8 +196,9 @@ Running the spinner in a CI is a problem as each write is treated separately, wh
 
 <img width="361" height="580" alt="Screenshot from 2025-11-17 22-28-51" src="https://github.com/user-attachments/assets/5973a452-953e-48c7-8de0-5f6ad2859a2f" />
 
-Which is obviously not ideal. This spinner comes with a way to fix this however using the `CI` env variable. Most CI runners will set an env variable of `CI` to some variation of `true`, so reading this we can decide instead what we display
+Which is obviously not great, but we can get around it using the `CI` env variable. Most CI runners will set an env variable of `CI` to some variation of `true`, so if we read this then we can decide to display something else instead that isn't animated
 
+This is why we have the code below in the `Spinner.ts`
 ```ts
 const CI = execSync('echo "$CI"').toString().trim();
 ...
@@ -206,7 +207,9 @@ if (CI) {
 }
 ```
 
-So the output by default in the CI will instead look like this:
+It's worth noting as sometimes you might set the `CI` env variable to `false`, or maybe you're using a runner which doesn't do this, in which case you may need to modify it to get it working again
+
+However assuming you're using something like github actions and not modifying the env variables your default output in the CI should look like this instead:
 
 <img width="361" height="221" alt="Screenshot from 2025-11-17 22-29-21" src="https://github.com/user-attachments/assets/3f5bba11-ce97-4dc2-8fd5-15f5e9161ea0" />
 
