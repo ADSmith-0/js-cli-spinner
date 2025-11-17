@@ -104,6 +104,7 @@ await withSpinner({
 [Output.webm](https://github.com/user-attachments/assets/6f35af3b-f638-44f6-8984-a1b75e389b0b)
 
 ## Features
+### Errors
 The purpose of this library is to work collaboratively with any command that's run. If the command is successful then it should complete and move onto the next command, however if the command is not successful, then we should exit the script and bubble up the error to the dev. If the spinner is hiding errors from us then it doesn't do us much good
 
 How `withSpinner` works is that it will listen to the `stdout`, `stderr` and `code` for the command that's being executed. To briefly explain:
@@ -126,6 +127,9 @@ Here we run 3 commands one after another:
 - `exit 1` - Exit with code `1`, which is an error
 
 Then the outcome as you can see from above is that the process will display our `stderr` and stop execution. What this means in practice is that you should be able to run any command with the `withSpinner` function and it will pass on the error that's printed from the command
+
+### Additional codes
+TODO
 
 ## Why library-less?
 It's honestly just far easier. A lot of projects and orgs have specific rules about which libraries can be included, and this isn't intended to be massive and comprehesive. Rather it's intended to be a small tool to make long npm scripts, that run multiple steps, much easier to read and understand. Any modifications you want such as different colours, text, spinners, etc, can all be achieved very easily through the recipes section, something which would be much harder to do if it was abstracted behind an interface
@@ -213,3 +217,5 @@ However assuming you're using something like github actions and not modifying th
 
 <img width="361" height="221" alt="Screenshot from 2025-11-17 22-29-21" src="https://github.com/user-attachments/assets/3f5bba11-ce97-4dc2-8fd5-15f5e9161ea0" />
 
+## Speed
+TODO
