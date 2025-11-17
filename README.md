@@ -209,7 +209,7 @@ if (CI) {
 
 It's worth noting as sometimes you might set the `CI` env variable to `false`, or maybe you're using a runner which doesn't do this, in which case you may need to modify it to get it working again
 
-However assuming you're using something like github actions and not modifying the env variables your default output in the CI should look like this instead:
+However assuming you're using something like github actions and not modifying the env variables, your default output in the CI should look like this instead:
 
 <img width="361" height="221" alt="Screenshot from 2025-11-17 22-29-21" src="https://github.com/user-attachments/assets/3f5bba11-ce97-4dc2-8fd5-15f5e9161ea0" />
 
