@@ -1,4 +1,4 @@
-import { exec, execSync } from "node:child_process";
+import { execSync, spawn } from "node:child_process";
 import { clearLine, cursorTo } from "node:readline";
 
 type Stdout = string;
@@ -38,7 +38,7 @@ export const withSpinner = ({
   }
 
   return new Promise<Stdout>((resolve) => {
-    const task = exec(cmd);
+    const task = spawn(cmd, { shell: true });
 
     let stdout: string = "";
     let stderr: string = "";
