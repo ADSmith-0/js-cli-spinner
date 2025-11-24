@@ -62,6 +62,10 @@ export const withSpinner = ({
         process.stderr.write(stderr);
         process.exit(1);
       }
+      if (code === 127) {
+        process.stdout.write(`\r${BOLD_RED}✖${RESET} ${taskName}: Command or file not found\n`);
+        process.exit(127);
+      }
       process.stdout.write(`\r${BOLD_GREEN}✔${RESET} ${finishedText}\n`);
       if (code !== 0 && code !== null) {
         process.stdout.write(
