@@ -52,10 +52,11 @@ export const withSpinner = ({
     });
 
     task.on("close", (code) => {
-      clearInterval(spinner);
-      clearLine(process.stdout, 0);
-      cursorTo(process.stdout, 0);
-
+      if (spinner) {
+        clearInterval(spinner);
+        clearLine(process.stdout, 0);
+        cursorTo(process.stdout, 0);
+      }
       if (code === 1 || stderr.includes("ERROR") || stderr.includes("Error")) {
         process.stdout.write(`\r${BOLD_RED}✖${RESET} ${taskName}\n`);
         process.stderr.write(stderr);
