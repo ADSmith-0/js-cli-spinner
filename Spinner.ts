@@ -48,9 +48,7 @@ export const withSpinner = ({
   cmd: string;
   finishedText: string;
 }) => {
-
   Spinner.start(taskName)
-
   return new Promise<Stdout>((resolve) => {
     const task = spawn(cmd, { shell: true });
 
