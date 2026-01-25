@@ -15,6 +15,16 @@ const INTERVAL = 80;
 
 const CI = execSync('echo "$CI"').toString().trim();
 
+export const success = (message: string) => {
+  process.stdout.write(`\r${BOLD_GREEN}✔${RESET} ${message}\n`);
+};
+export const warn = (message: string) => {
+  process.stderr.write(`\r${BOLD_YELLOW}⚠ Warning${RESET} ${message}\n`);
+};
+export const error = (message: string) => {
+  process.stderr.write(`\r${BOLD_RED}✖ ${message}${RESET}\n`);
+};
+
 let spinner: NodeJS.Timeout | undefined;
 
 export const Spinner = {
@@ -48,7 +58,7 @@ export const withSpinner = ({
   cmd: string;
   finishedText: string;
 }) => {
-  Spinner.start(taskName)
+  Spinner.start(taskName);
   return new Promise<Stdout>((resolve) => {
     const task = spawn(cmd, { shell: true });
 
@@ -66,21 +76,17 @@ export const withSpinner = ({
     task.on("close", (code) => {
       Spinner.stop();
       if (code === 1 || stderr.includes("ERROR") || stderr.includes("Error")) {
-        process.stdout.write(`\r${BOLD_RED}✖${RESET} ${taskName}\n`);
+        error(taskName);
         process.stderr.write(stderr);
         process.exit(1);
       }
       if (code === 127) {
-        process.stdout.write(
-          `\r${BOLD_RED}✖${RESET} ${taskName}: Command or file not found\n`,
-        );
+        error(`${taskName}: Command or file not found`);
         process.exit(127);
       }
-      process.stdout.write(`\r${BOLD_GREEN}✔${RESET} ${finishedText}\n`);
+      success(finishedText);
       if (code !== 0 && code !== null) {
-        process.stdout.write(
-          `\r${BOLD_YELLOW}⚠${RESET} Warning: Process exited with a non-zero code: ${code}\n`,
-        );
+        warn(`Process exited with a non-zero code: ${code}`);
       }
       resolve(stdout);
     });
