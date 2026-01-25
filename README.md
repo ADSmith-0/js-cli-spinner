@@ -150,6 +150,24 @@ Here we run 3 commands one after another:
 
 Then the outcome as you can see from above is that the process will display our `stderr` and stop execution. What this means in practice is that you should be able to run any command with the `withSpinner` function and it will pass on the error that's printed from the command
 
+### Using non-bash commands
+Sometimes we don't want to use bash commands, but instead we'll have a JS script running, in order to use a spinner with this we can use the exports of: `Spinner`, `success`, `warning` and `error`, for example
+```ts
+import { Spinner, success, error } from "utils.ts";
+import { readFileSync } from "node:fs";
+
+Spinner.start("Read file");
+try {
+    const data = readFileSync("my_file.txt", "utf-8");
+    Spinner.stop();
+    success("File read!");
+} catch(err) {
+    Spinner.stop();
+    error(err);
+    process.exit(1);
+}
+```
+
 ### Additional codes
 TODO
 
