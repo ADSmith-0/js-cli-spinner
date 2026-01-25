@@ -107,18 +107,18 @@ export const withSpinner = ({
 
 ### Example usage
 ```ts
-import { withSpinner } from "./Spinner";
+import { withSpinner } from "./utils.ts";
 
 await withSpinner({
   taskName: "Clearing Cache",
-  cmd: "sleep 5",
+  cmd: "sleep 2; exit 2;",
   finishedText: "Cache cleared",
 });
 
 await withSpinner({
-  taskName: "Error process",
-  cmd: 'sleep 2; echo "Process exited with an error!" >&2; exit 1;',
-  finishedText: "Process errored!",
+  taskName: "Running prebuild",
+  cmd: 'sleep 2; echo "Prebuild failed!" >&2; exit 1;',
+  finishedText: "Prebuilt",
 });
 ```
 
