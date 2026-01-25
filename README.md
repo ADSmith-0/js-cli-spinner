@@ -1,11 +1,12 @@
 # Currently WIP 🚧
 # Simple JS CLI spinner
-A tiny, library-less, 73 line spinner to be used in your npm projects to make running multiple commands much easier. No dependencies, no install, simply copy and paste the `Spinner.ts` file to use. Example usage can be seen in the `index.ts`
+A tiny, library-less, 73 line spinner to be used in your npm projects to make running multiple commands much easier. No dependencies, no install, simply copy and paste the `utils.ts` file to use. Example usage can be seen in the `index.ts`
 
 ## Installation
-Copy the `Spinner.ts` file into your project, or you can copy and paste from below
+Copy the `utils.ts` file into your project, or you can copy and paste from below
 
-_Below may have changed, check `Spinner.ts` for the most up-to-date version_
+> [!CAUTION]
+> Below may have changed, check `Spinner.ts` for the most up-to-date version_
 
 ```ts
 import { execSync, spawn } from "node:child_process";
@@ -25,6 +26,40 @@ const INTERVAL = 80;
 
 const CI = execSync('echo "$CI"').toString().trim();
 
+export const success = (message: string) => {
+  process.stdout.write(`\r${BOLD_GREEN}✔${RESET} ${message}\n`);
+};
+export const warn = (message: string) => {
+  process.stderr.write(`\r${BOLD_YELLOW}⚠ Warning${RESET} ${message}\n`);
+};
+export const error = (message: string) => {
+  process.stderr.write(`\r${BOLD_RED}✖ ${message}${RESET}\n`);
+};
+
+let spinner: NodeJS.Timeout | undefined;
+
+export const Spinner = {
+  start: (taskName: string) => {
+    if (CI) {
+      process.stdout.write(`\r${BOLD_BLUE}>${RESET} ${taskName}...`);
+    } else {
+      let i = 0;
+      spinner = setInterval(() => {
+        process.stdout.write(
+          `\r${BOLD_BLUE}${FRAMES[i++ % FRAMES.length]}${RESET} ${taskName}...`,
+        );
+      }, INTERVAL);
+    }
+  },
+  stop: () => {
+    if (spinner) {
+      clearInterval(spinner);
+      clearLine(process.stdout, 0);
+      cursorTo(process.stdout, 0);
+    }
+  },
+};
+
 export const withSpinner = ({
   taskName,
   cmd,
@@ -34,19 +69,7 @@ export const withSpinner = ({
   cmd: string;
   finishedText: string;
 }) => {
-  let spinner: NodeJS.Timeout | undefined;
-
-  if (CI) {
-    process.stdout.write(`\r${BOLD_BLUE}>${RESET} ${taskName}...`);
-  } else {
-    let i = 0;
-    spinner = setInterval(() => {
-      process.stdout.write(
-        `\r${BOLD_BLUE}${FRAMES[i++ % FRAMES.length]}${RESET} ${taskName}...`,
-      );
-    }, INTERVAL);
-  }
-
+  Spinner.start(taskName);
   return new Promise<Stdout>((resolve) => {
     const task = spawn(cmd, { shell: true });
 
@@ -62,20 +85,19 @@ export const withSpinner = ({
     });
 
     task.on("close", (code) => {
-      clearInterval(spinner);
-      clearLine(process.stdout, 0);
-      cursorTo(process.stdout, 0);
-
+      Spinner.stop();
       if (code === 1 || stderr.includes("ERROR") || stderr.includes("Error")) {
-        process.stdout.write(`\r${BOLD_RED}✖${RESET} ${taskName}\n`);
+        error(taskName);
         process.stderr.write(stderr);
         process.exit(1);
       }
-      process.stdout.write(`\r${BOLD_GREEN}✔${RESET} ${finishedText}\n`);
+      if (code === 127) {
+        error(`${taskName}: Command or file not found`);
+        process.exit(127);
+      }
+      success(finishedText);
       if (code !== 0 && code !== null) {
-        process.stdout.write(
-          `\r${BOLD_YELLOW}⚠${RESET} Warning: Process exited with a non-zero code: ${code}\n`,
-        );
+        warn(`Process exited with a non-zero code: ${code}`);
       }
       resolve(stdout);
     });
