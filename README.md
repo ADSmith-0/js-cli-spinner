@@ -172,7 +172,7 @@ try {
 TODO
 
 ## Why library-less?
-It's honestly just far easier. A lot of projects and orgs have specific rules about which libraries can be included, and this isn't intended to be massive and comprehesive. Rather it's intended to be a small tool to make long npm scripts, that run multiple steps, much easier to read and understand. Any modifications you want such as different colours, text, spinners, etc, can all be achieved very easily through the recipes section, something which would be much harder to do if it was abstracted behind an interface
+It's far easier to modify and install, as a lot of projects and orgs have specific rules about which libraries can be included, and this isn't intended to be massive and comprehesive, but rather it's intended to be a small tool to make long npm scripts, that run multiple steps, much easier to read and understand. Any modifications you want such as different colours, text, spinners, etc, can all be achieved very easily through the recipes section, something which would be much harder to do if it was abstracted behind an interface
 
 ## Recipes
 ### Colour
