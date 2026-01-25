@@ -15,6 +15,30 @@ const INTERVAL = 80;
 
 const CI = execSync('echo "$CI"').toString().trim();
 
+let spinner: NodeJS.Timeout | undefined;
+
+export const Spinner = {
+  start: (taskName: string) => {
+    if (CI) {
+      process.stdout.write(`\r${BOLD_BLUE}>${RESET} ${taskName}...`);
+    } else {
+      let i = 0;
+      spinner = setInterval(() => {
+        process.stdout.write(
+          `\r${BOLD_BLUE}${FRAMES[i++ % FRAMES.length]}${RESET} ${taskName}...`,
+        );
+      }, INTERVAL);
+    }
+  },
+  stop: () => {
+    if (spinner) {
+      clearInterval(spinner);
+      clearLine(process.stdout, 0);
+      cursorTo(process.stdout, 0);
+    }
+  },
+};
+
 export const withSpinner = ({
   taskName,
   cmd,
@@ -24,18 +48,8 @@ export const withSpinner = ({
   cmd: string;
   finishedText: string;
 }) => {
-  let spinner: NodeJS.Timeout | undefined;
 
-  if (CI) {
-    process.stdout.write(`\r${BOLD_BLUE}>${RESET} ${taskName}...`);
-  } else {
-    let i = 0;
-    spinner = setInterval(() => {
-      process.stdout.write(
-        `\r${BOLD_BLUE}${FRAMES[i++ % FRAMES.length]}${RESET} ${taskName}...`,
-      );
-    }, INTERVAL);
-  }
+  Spinner.start(taskName)
 
   return new Promise<Stdout>((resolve) => {
     const task = spawn(cmd, { shell: true });
@@ -52,18 +66,16 @@ export const withSpinner = ({
     });
 
     task.on("close", (code) => {
-      if (spinner) {
-        clearInterval(spinner);
-        clearLine(process.stdout, 0);
-        cursorTo(process.stdout, 0);
-      }
+      Spinner.stop();
       if (code === 1 || stderr.includes("ERROR") || stderr.includes("Error")) {
         process.stdout.write(`\r${BOLD_RED}✖${RESET} ${taskName}\n`);
         process.stderr.write(stderr);
         process.exit(1);
       }
       if (code === 127) {
-        process.stdout.write(`\r${BOLD_RED}✖${RESET} ${taskName}: Command or file not found\n`);
+        process.stdout.write(
+          `\r${BOLD_RED}✖${RESET} ${taskName}: Command or file not found\n`,
+        );
         process.exit(127);
       }
       process.stdout.write(`\r${BOLD_GREEN}✔${RESET} ${finishedText}\n`);
