@@ -153,7 +153,7 @@ Then the outcome as you can see from above is that the process will display our 
 ### Using non-bash commands
 Sometimes we don't want to use bash commands, but instead we'll have a JS script running, in order to use a spinner with this we can use the exports of: `Spinner`, `success`, `warning` and `error`, for example
 ```ts
-import { Spinner, success, error } from "utils.ts";
+import { Spinner, success, error } from "./utils.ts";
 import { readFileSync } from "node:fs";
 
 Spinner.start("Read file");
@@ -169,7 +169,12 @@ try {
 ```
 
 ### Additional codes
-TODO
+There are a number of codes that you can choose to perform actions on, currently the ones that are covered are:
+- `1` - Error code
+- `127` - Missing command or file
+
+> [!NOTE]
+> Any non-zero codes that don't exit will show a warning in the CLI
 
 ## Why library-less?
 It's far easier to modify and install, as a lot of projects and orgs have specific rules about which libraries can be included, and this isn't intended to be massive and comprehesive, but rather it's intended to be a small tool to make long npm scripts, that run multiple steps, much easier to read and understand. Any modifications you want such as different colours, text, spinners, etc, can all be achieved very easily through the recipes section, something which would be much harder to do if it was abstracted behind an interface
