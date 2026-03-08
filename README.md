@@ -1,6 +1,6 @@
 # Currently WIP 🚧
 # Simple JS CLI spinner
-A tiny, library-less, 73 line spinner to be used in your npm projects to make running multiple commands much easier. No dependencies, no install, simply copy and paste the `utils.ts` file to use. Example usage can be seen in the `index.ts`
+A small, library-less, CLI spinner to make running multiple commands much easier to read. No dependencies or install required, copy and paste the `utils.ts` file to use - example usage can be seen in the `index.ts`
 
 ## Installation
 Copy the `utils.ts` file into your project, or you can copy and paste from below
